@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       publish_target:
-        description: Where to publish (PyPI is manual only — never triggered by GitHub Release)
+        description: Where to publish
         required: true
         default: testpypi
         type: choice
