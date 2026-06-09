@@ -5,14 +5,16 @@ description = "Monorepo for Singapore government open data tools"
 requires-python = ">=3.10"
 
 [tool.uv.workspace]
-members = ["packages/publicsgdata"]
+members = ["packages/*"]
 
 [tool.uv.sources]
 publicsgdata = { workspace = true }
+publicsgdata-mcp = { workspace = true }
 
 [dependency-groups]
 dev = [
     "publicsgdata[dev]",
+    "publicsgdata-mcp",
 ]
 
 [tool.uv]
@@ -21,7 +23,7 @@ default-groups = ["dev"]
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
-testpaths = ["packages/publicsgdata/tests"]
+testpaths = ["packages/publicsgdata/tests", "packages/publicsgdata-mcp/tests"]
 markers = [
     "integration: live data.gov.sg API tests (local only; use ./scripts/test_integration.sh)",
 ]
@@ -32,6 +34,8 @@ target-version = "py310"
 src = [
     "packages/publicsgdata/src",
     "packages/publicsgdata/tests",
+    "packages/publicsgdata-mcp/src",
+    "packages/publicsgdata-mcp/tests",
 ]
 
 [tool.ruff.lint]
@@ -42,11 +46,13 @@ python_version = "3.10"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
-mypy_path = "packages/publicsgdata/src"
-packages = ["publicsgdata"]
+mypy_path = "packages/publicsgdata/src:packages/publicsgdata-mcp/src"
+packages = ["publicsgdata", "publicsgdata_mcp"]
 files = [
     "packages/publicsgdata/src",
     "packages/publicsgdata/tests",
+    "packages/publicsgdata-mcp/src",
+    "packages/publicsgdata-mcp/tests",
 ]
 
 [[tool.mypy.overrides]]
@@ -55,8 +61,13 @@ module = [
     "test_datagovsg",
     "test_async_datagovsg",
     "test_integration_datagovsg",
+    "test_tools",
 ]
 disallow_untyped_defs = false
+
+[[tool.mypy.overrides]]
+module = ["publicsgdata_mcp.server"]
+ignore_missing_imports = true
 
 [tool.coverage.run]
 source = ["publicsgdata"]

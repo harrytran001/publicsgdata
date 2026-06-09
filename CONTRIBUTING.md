@@ -29,6 +29,7 @@ Use `uv run pytest` (and friends) or the `./scripts/*.sh` scripts from the repo 
 ```text
 packages/
   publicsgdata/        # Python SDK
+  publicsgdata-mcp/    # MCP server
 ```
 
 ## Formatting

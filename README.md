@@ -11,11 +11,15 @@ Monorepo for Singapore government open data tools.
 | Package | Description |
 |---------|-------------|
 | [`publicsgdata`](packages/publicsgdata/) | Python SDK for data.gov.sg (and LTA / OneMap later) |
+| [`publicsgdata-mcp`](packages/publicsgdata-mcp/) | Local MCP server for AI agents |
 
 ## Install
 
+Published packages:
+
 ```bash
 uv pip install publicsgdata
+uv pip install publicsgdata-mcp
 ```
 
 ## Development
@@ -37,6 +41,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for PR guidelines.
 ```text
 packages/
   publicsgdata/        # Python SDK
+  publicsgdata-mcp/    # MCP server (stdio)
 scripts/               # repo-wide dev scripts
 ```
 
