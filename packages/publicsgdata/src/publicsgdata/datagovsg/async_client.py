@@ -56,6 +56,7 @@ class AsyncDataGovSGClient(DataGovSGRequestMixin):
         path: str,
         *,
         params: Mapping[str, Any] | None = None,
+        json: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         url = self._build_url(host, path)
         encoded = self._encode_query(params) if params else None
@@ -63,6 +64,7 @@ class AsyncDataGovSGClient(DataGovSGRequestMixin):
             method,
             url,
             params=encoded,
+            json=json,
             headers=self._merge_headers(),
         )
         payload = self._parse_json(response)

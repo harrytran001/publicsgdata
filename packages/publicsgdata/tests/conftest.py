@@ -30,6 +30,12 @@ def mock_handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(200, json=load_fixture("datastore_search.json"))
     if path.endswith("/pm25"):
         return httpx.Response(200, json=load_fixture("pm25.json"))
+    if path.endswith("/initiate-download"):
+        return httpx.Response(200, json=load_fixture("download_initiate.json"))
+    if path.endswith("/poll-download"):
+        return httpx.Response(200, json=load_fixture("download_poll_ready.json"))
+    if request.url.host == "example.com":
+        return httpx.Response(200, content=b"month,town\n2017-01,ANG MO KIO\n")
     return httpx.Response(404, json={"message": "not found"})
 
 

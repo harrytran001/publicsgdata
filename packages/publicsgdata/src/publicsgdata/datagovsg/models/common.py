@@ -139,3 +139,18 @@ class PM25Response(ApiModel):
     region_metadata: list[PM25RegionMetadata] = Field(default_factory=list, alias="regionMetadata")
     items: list[PM25Reading] = Field(default_factory=list)
     pagination_token: str | None = Field(default=None, alias="paginationToken")
+
+
+class DownloadFilter(ApiModel):
+    column_name: str = Field(alias="columnName")
+    type: str
+    value: str
+
+
+class DownloadInitiateResponse(ApiModel):
+    message: str | None = None
+
+
+class DownloadPollResponse(ApiModel):
+    status: str
+    url: str | None = None

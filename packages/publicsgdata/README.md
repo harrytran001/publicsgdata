@@ -27,6 +27,19 @@ with DataGovSGClient() as client:  # optional: api_key="..." or DATA_GOV_SG_API_
     print(pm25.items[0].readings)
 ```
 
+### Download full dataset
+
+```python
+from publicsgdata import DataGovSGClient
+
+with DataGovSGClient() as client:
+    path = client.datasets.download_file(
+        "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
+        "hdb-resale.csv",
+    )
+    print(path)
+```
+
 ### Async
 
 ```python

@@ -10,6 +10,9 @@ from publicsgdata.datagovsg.models.common import (
     DatasetRowsResponse,
     DatasetSummary,
     DatastoreSearchResult,
+    DownloadFilter,
+    DownloadInitiateResponse,
+    DownloadPollResponse,
     PM25Response,
 )
 
@@ -25,5 +28,8 @@ __all__ = [
     "DatasetRowsResponse",
     "DatasetSummary",
     "DatastoreSearchResult",
+    "DownloadFilter",
+    "DownloadInitiateResponse",
+    "DownloadPollResponse",
     "PM25Response",
 ]

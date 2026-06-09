@@ -6,11 +6,17 @@ from typing import Any
 from urllib.parse import urljoin
 
 from publicsgdata._base_client import BaseHTTPClient
-from publicsgdata._constants import CATALOG_BASE_URL, CKAN_BASE_URL, REALTIME_BASE_URL
+from publicsgdata._constants import (
+    CATALOG_BASE_URL,
+    CKAN_BASE_URL,
+    DOWNLOAD_BASE_URL,
+    REALTIME_BASE_URL,
+)
 
 
 class DataGovSGHost(str, Enum):
     CATALOG = "catalog"
+    DOWNLOAD = "download"
     CKAN = "ckan"
     REALTIME = "realtime"
 
@@ -21,6 +27,8 @@ class DataGovSGRequestMixin(BaseHTTPClient):
     def _base_url(self, host: DataGovSGHost) -> str:
         if host is DataGovSGHost.CATALOG:
             return CATALOG_BASE_URL
+        if host is DataGovSGHost.DOWNLOAD:
+            return DOWNLOAD_BASE_URL
         if host is DataGovSGHost.CKAN:
             return CKAN_BASE_URL
         return REALTIME_BASE_URL

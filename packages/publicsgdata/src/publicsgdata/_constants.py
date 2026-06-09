@@ -9,6 +9,7 @@ DEFAULT_TIMEOUT = 30.0
 
 # data.gov.sg hosts
 CATALOG_BASE_URL = "https://api-production.data.gov.sg/v2/public/api"
+DOWNLOAD_BASE_URL = "https://api-open.data.gov.sg/v1/public/api"
 CKAN_BASE_URL = "https://data.gov.sg"
 REALTIME_BASE_URL = "https://api-open.data.gov.sg/v2/real-time/api"
 

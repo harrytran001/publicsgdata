@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from publicsgdata.datagovsg.client import DataGovSGClient
 
 
@@ -35,3 +37,26 @@ def test_pm25(sync_client: DataGovSGClient) -> None:
     pm25 = sync_client.realtime.pm25.get()
     assert len(pm25.items) == 1
     assert pm25.items[0].readings is not None
+
+
+def test_dataset_initiate_download(sync_client: DataGovSGClient) -> None:
+    result = sync_client.datasets.initiate_download("d_8b84c4ee58e3cfc0ece0d773c8ca6abc")
+    assert result.message == "Download initiated"
+
+
+def test_dataset_get_download_url(sync_client: DataGovSGClient) -> None:
+    url = sync_client.datasets.get_download_url(
+        "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
+        poll_interval=0.01,
+    )
+    assert url == "https://example.com/datasets/hdb-resale.csv"
+
+
+def test_dataset_download_file(sync_client: DataGovSGClient, tmp_path: Path) -> None:
+    path = sync_client.datasets.download_file(
+        "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
+        tmp_path / "hdb.csv",
+        poll_interval=0.01,
+    )
+    assert path.exists()
+    assert b"ANG MO KIO" in path.read_bytes()
