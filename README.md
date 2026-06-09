@@ -15,21 +15,20 @@ pip install publicsgdata
 ```python
 from publicsgdata import DataGovSGClient
 
-client = DataGovSGClient()  # optional: api_key="..." or DATA_GOV_SG_API_KEY env
+with DataGovSGClient() as client:  # optional: api_key="..." or DATA_GOV_SG_API_KEY env
+    # Browse catalog collections
+    catalog = client.collections.list()
+    print(f"{len(catalog.collections)} collections")
+    print(catalog.collections[0].name)
 
-# List collections
-collections = client.collections.list()
+    # Fetch dataset rows (HDB resale prices example dataset)
+    rows = client.datasets.list_rows("d_8b84c4ee58e3cfc0ece0d773c8ca6abc", limit=10)
+    for row in rows.rows:
+        print(row.model_dump())
 
-# Fetch dataset rows (HDB resale prices example dataset)
-rows = client.datasets.list_rows("d_8b84c4ee58e3cfc0ece0d773c8ca6abc", limit=10)
-for row in rows.rows:
-    print(row.model_dump())
-
-# PM2.5 real-time readings
-pm25 = client.realtime.pm25.get()
-print(pm25.items[0].readings)
-
-client.close()
+    # PM2.5 real-time readings
+    pm25 = client.realtime.pm25.get()
+    print(pm25.items[0].readings)
 ```
 
 ### Async
