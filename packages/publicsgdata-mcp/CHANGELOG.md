@@ -2,6 +2,21 @@
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1](https://github.com/harrytran001/publicsgdata/compare/publicsgdata-mcp-v0.2.0...publicsgdata-mcp-v0.2.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* allow URL-only download poll responses ([c83a020](https://github.com/harrytran001/publicsgdata/commit/c83a0209a2ac7387942a76640361ba0844b3f694))
+* allow URL-only download poll responses ([27c5d45](https://github.com/harrytran001/publicsgdata/commit/27c5d451dbd7c7676aadef0b724e72543457378f))
+* avoid Python 3.14 for MCP server ([44be9fa](https://github.com/harrytran001/publicsgdata/commit/44be9fae0f8fba4b5943297569983ff4e9141fae))
+* mcp python 314 compat ([8614684](https://github.com/harrytran001/publicsgdata/commit/8614684a3ba399e886a82a786be9ee276978f5a4))
+
+
+### Documentation
+
+* keep MCP uvx config generic ([0c249ec](https://github.com/harrytran001/publicsgdata/commit/0c249ece2c22b9dc35ecf750a6f017e03ab952b5))
+
 ## [0.2.0](https://github.com/harrytran001/publicsgdata/compare/publicsgdata-mcp-v0.1.0...publicsgdata-mcp-v0.2.0) (2026-06-09)
 
 
