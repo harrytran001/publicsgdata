@@ -1,29 +1,29 @@
 name: Feature Request
-description: Suggest a feature or enhancement.
+description: Missing something? Describe what you'd like.
 title: "[Feature Request] "
 labels: ["enhancement"]
 body:
   - type: textarea
     id: problem-description
     attributes:
-      label: Problem Description
+      label: What's the problem?
     validations:
       required: true
   - type: textarea
     id: proposed-solution
     attributes:
-      label: Proposed Solution
+      label: What would help?
     validations:
       required: true
   - type: textarea
     id: alternatives-considered
     attributes:
-      label: Alternatives Considered
+      label: Alternatives you considered
   - type: checkboxes
     id: contribution
     attributes:
-      label: Would you like to work on this?
+      label: Want to work on it?
       options:
-        - label: Yes, I'd love to work on it!
-        - label: I'm open to collaborating but need guidance.
-        - label: No, I'm just sharing the idea.
+        - label: Yes, I'll open a PR
+        - label: Maybe, but I'd like guidance
+        - label: No, just sharing the idea

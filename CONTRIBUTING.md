@@ -1,30 +1,30 @@
-# Contributing to publicsgdata
+# Contributing
 
-Contributions are welcome. Please follow the fork and pull request workflow.
+Fork the repo, make your changes, open a pull request.
 
-## Pull request guidelines
+## Pull requests
 
-1. **Title format** — must match one of:
+1. **Title**: pick one of these formats:
    - `[feat] Add dataset download helper`
    - `feat: Add dataset download helper`
    - `feat-dataset-download`
-2. **Link issues** — use `fixes #123` in the description when applicable.
-3. **No duplicate PRs** — search [open pull requests](https://github.com/publicsgdata/publicsgdata/pulls) first.
-4. **AI-generated PRs** — disclose in the PR template if entirely AI-generated.
+2. **Issues**: add `fixes #123` in the description when it applies.
+3. **Duplicates**: check [open PRs](https://github.com/publicsgdata/publicsgdata/pulls) first.
+4. **AI-assisted work**: mention it in the PR template if the whole PR was generated.
 
-PR titles are enforced by `.github/workflows/pr-lint.yml`.
+Titles are checked by `.github/workflows/pr-lint.yml`.
 
-## Development setup
+## Setup
 
-Requires [uv](https://docs.astral.sh/uv/getting-started/installation/).
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then:
 
 ```bash
-./scripts/dev_setup.sh   # uv sync
+./scripts/dev_setup.sh
 ```
 
-Run tools via `uv run` (e.g. `uv run pytest`) or use the `./scripts/*.sh` helpers.
+Use `uv run pytest` (and friends) or the `./scripts/*.sh` scripts.
 
-## Formatting and validation
+## Formatting
 
 ```bash
 ./scripts/format.sh
@@ -33,16 +33,16 @@ Run tools via `uv run` (e.g. `uv run pytest`) or use the `./scripts/*.sh` helper
 
 ## Tests
 
-**Unit tests (mocked, runs in CI):**
+Unit tests (mocked, runs in CI):
 
 ```bash
 ./scripts/test.sh
 ```
 
-**Integration tests (live data.gov.sg API, local only — not in CI):**
+Integration tests (real API, not in CI):
 
 ```bash
 ./scripts/test_integration.sh
 ```
 
-Requires network. Optional: `export DATA_GOV_SG_API_KEY=...` for higher rate limits.
+Needs network. Set `DATA_GOV_SG_API_KEY` if you hit rate limits.

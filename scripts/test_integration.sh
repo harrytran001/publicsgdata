@@ -8,5 +8,5 @@ if [ ! -f uv.lock ]; then
   "$ROOT/scripts/dev_setup.sh"
 fi
 
-echo "Running live integration tests against data.gov.sg (network required)..."
+echo "Running integration tests against data.gov.sg (needs network)..."
 uv run pytest -m integration -v "$@"

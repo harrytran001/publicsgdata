@@ -1,8 +1,6 @@
 ## Summary
 
-Describe key changes, mention related issues or motivation for the changes.
-
-(If applicable, issue number: #____)
+What changed and why. Link issues with `fixes #123` if relevant.
 
 ## Type of change
 
@@ -17,22 +15,18 @@ Describe key changes, mention related issues or motivation for the changes.
 
 ## Checklist
 
-- [ ] Code complies with style guidelines
 - [ ] Ran `./scripts/format.sh` and `./scripts/validate.sh`
-- [ ] Self-review completed
-- [ ] Documentation updated (comments, docstrings, README if needed)
-- [ ] Examples updated (if applicable)
-- [ ] Tested in clean environment
-- [ ] Tests added/updated (if applicable)
+- [ ] Updated docs, comments, or tests if needed
+- [ ] Tested locally
 
-### Duplicate and AI-Generated PR Check
+### Before opening
 
-- [ ] I have searched existing [open pull requests](../../pulls) and confirmed no duplicate PR exists
-- [ ] If a similar PR exists, I have explained below why this PR is a better approach
-- [ ] Check if this PR was entirely AI-generated (by Copilot, Claude Code, Cursor, etc.)
+- [ ] Checked [open PRs](../../pulls), no duplicate
+- [ ] If a similar PR exists, explained why this one is different below
+- [ ] If this PR was fully AI-generated, noted that here
 
 ---
 
-## Additional Notes
+## Notes
 
-Add any important context (deployment instructions, screenshots, security considerations, etc.)
+Anything else worth knowing: screenshots, deploy steps, edge cases, etc.

@@ -1,7 +1,7 @@
 [project]
 name = "publicsgdata"
 version = "0.1.0"
-description = "Python SDK for Singapore government public data (data.gov.sg, LTA, OneMap)"
+description = "Python client for Singapore government open data (data.gov.sg, LTA, OneMap)"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
@@ -75,7 +75,7 @@ asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
 testpaths = ["tests"]
 markers = [
-    "integration: live data.gov.sg API tests (local only — use ./scripts/test_integration.sh)",
+    "integration: live data.gov.sg API tests (local only; use ./scripts/test_integration.sh)",
 ]
 
 [tool.ruff]
