@@ -152,5 +152,5 @@ class DownloadInitiateResponse(ApiModel):
 
 
 class DownloadPollResponse(ApiModel):
-    status: str
+    status: str | None = None
     url: str | None = None
