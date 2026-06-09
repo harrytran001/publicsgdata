@@ -2,6 +2,14 @@
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1](https://github.com/harrytran001/publicsgdata/compare/publicsgdata-v0.2.0...publicsgdata-v0.2.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* allow URL-only download poll responses ([c83a020](https://github.com/harrytran001/publicsgdata/commit/c83a0209a2ac7387942a76640361ba0844b3f694))
+* allow URL-only download poll responses ([27c5d45](https://github.com/harrytran001/publicsgdata/commit/27c5d451dbd7c7676aadef0b724e72543457378f))
+
 ## [0.2.0](https://github.com/harrytran001/publicsgdata/compare/publicsgdata-v0.1.2...publicsgdata-v0.2.0) (2026-06-09)
 
 
