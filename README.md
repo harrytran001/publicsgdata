@@ -1,3 +1,5 @@
+> **Disclaimer:** This is not an official Singapore Government project. It is an independent open-source library and is not affiliated with, endorsed by, or operated by any government agency.
+
 # publicsgdata
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
