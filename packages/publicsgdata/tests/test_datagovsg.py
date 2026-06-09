@@ -44,6 +44,12 @@ def test_dataset_initiate_download(sync_client: DataGovSGClient) -> None:
     assert result.message == "Download initiated"
 
 
+def test_dataset_poll_download_accepts_url_only_response(sync_client: DataGovSGClient) -> None:
+    result = sync_client.datasets.poll_download("d_8b84c4ee58e3cfc0ece0d773c8ca6abc")
+    assert result.status is None
+    assert result.url == "https://example.com/datasets/hdb-resale.csv"
+
+
 def test_dataset_get_download_url(sync_client: DataGovSGClient) -> None:
     url = sync_client.datasets.get_download_url(
         "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",

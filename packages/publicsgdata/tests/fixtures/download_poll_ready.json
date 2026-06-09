@@ -1,7 +1,6 @@
 {
   "code": 0,
   "data": {
-    "status": "READY",
     "url": "https://example.com/datasets/hdb-resale.csv"
   },
   "errorMsg": ""

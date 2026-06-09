@@ -62,6 +62,13 @@ def test_live_dataset_search(live_client: DataGovSGClient) -> None:
     assert len(result.records) >= 1
 
 
+def test_live_dataset_poll_download(live_client: DataGovSGClient) -> None:
+    live_client.datasets.initiate_download(HDB_RESALE_DATASET_ID)
+    response = live_client.datasets.poll_download(HDB_RESALE_DATASET_ID)
+    if response.url is not None:
+        assert response.url.startswith("http")
+
+
 def test_live_pm25(live_client: DataGovSGClient) -> None:
     pm25 = live_client.realtime.pm25.get()
     assert len(pm25.items) >= 1

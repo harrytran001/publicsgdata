@@ -54,7 +54,7 @@ def test_download_dataset_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) 
     initiate = {"code": 0, "data": {"message": "ok"}, "errorMsg": ""}
     poll = {
         "code": 0,
-        "data": {"status": "READY", "url": "https://example.com/data.csv"},
+        "data": {"url": "https://example.com/data.csv"},
         "errorMsg": "",
     }
     metadata = {
