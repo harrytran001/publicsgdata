@@ -1,0 +1,55 @@
+name: Bug Report
+description: Report an issue to help us fix bugs and improve your experience.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Briefly describe the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: client-config
+    attributes:
+      label: Client Configuration
+      description: Relevant client setup (which portal client, credentials pattern, etc.)
+      placeholder: |
+        ```python
+        from publicsgdata import DataGovSGClient
+        client = DataGovSGClient()
+        ```
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: |
+        - OS:
+        - Python:
+        - publicsgdata version:
+        - Portal client: DataGovSG / LTA / OneMap
+    validations:
+      required: true

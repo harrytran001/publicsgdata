@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "result": {
+    "resource_id": "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
+    "fields": [{"type": "text", "id": "month"}],
+    "records": [{"month": "2017-01", "resale_price": "232000"}],
+    "_links": {
+      "start": "/api/action/datastore_search?resource_id=d_8b84c4ee58e3cfc0ece0d773c8ca6abc&limit=1",
+      "next": "/api/action/datastore_search?resource_id=d_8b84c4ee58e3cfc0ece0d773c8ca6abc&offset=1&limit=1"
+    },
+    "total": 2,
+    "limit": 1
+  }
+}

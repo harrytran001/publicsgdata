@@ -1,0 +1,14 @@
+{
+  "code": 0,
+  "data": {
+    "regionMetadata": [{"name": "central", "labelLocation": {"latitude": 1.35, "longitude": 103.82}}],
+    "items": [
+      {
+        "date": "2026-06-09",
+        "timestamp": "2026-06-09T11:00:00+08:00",
+        "readings": {"pm25_one_hourly": {"central": 17}}
+      }
+    ]
+  },
+  "errorMsg": ""
+}

@@ -1,0 +1,18 @@
+{
+  "code": 0,
+  "data": {
+    "collections": [
+      {
+        "collectionId": "471",
+        "name": "TradeNet Service Centres",
+        "description": "Sample collection",
+        "lastUpdatedAt": "2024-06-06T15:06:15+08:00",
+        "frequency": "ad-hoc",
+        "sources": ["Singapore Customs"],
+        "managedByAgencyName": "Singapore Customs",
+        "childDatasets": ["d_abc"]
+      }
+    ]
+  },
+  "errorMsg": ""
+}

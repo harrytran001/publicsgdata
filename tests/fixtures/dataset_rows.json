@@ -1,0 +1,24 @@
+{
+  "code": 0,
+  "data": {
+    "rows": [
+      {
+        "month": "2017-01",
+        "town": "ANG MO KIO",
+        "resale_price": "232000"
+      },
+      {
+        "month": "2017-01",
+        "town": "ANG MO KIO",
+        "resale_price": "250000"
+      }
+    ],
+    "datasetId": "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
+    "datasetName": "Resale flat prices",
+    "limit": 2,
+    "links": {
+      "next": "idCursor%5Bvalue%5D=2&limit=2"
+    }
+  },
+  "errorMsg": ""
+}

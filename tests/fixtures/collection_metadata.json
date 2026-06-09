@@ -1,0 +1,13 @@
+{
+  "code": 0,
+  "data": {
+    "collectionMetadata": {
+      "collectionId": "471",
+      "name": "TradeNet Service Centres",
+      "description": "Sample collection",
+      "managedBy": "Singapore Customs",
+      "childDatasets": ["d_abc"]
+    }
+  },
+  "errorMsg": ""
+}
