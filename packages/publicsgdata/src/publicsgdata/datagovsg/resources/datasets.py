@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import json
-from collections.abc import AsyncIterator, Iterator, Mapping
+import time
+from collections.abc import AsyncIterator, Iterator, Mapping, Sequence
+from pathlib import Path
 from typing import TYPE_CHECKING, Any
+from urllib.parse import urlparse
 
 from publicsgdata._pagination import AsyncCkanSearchIterator, CkanSearchIterator, SyncPageIterator
 from publicsgdata.datagovsg._request import DataGovSGHost
@@ -12,7 +15,11 @@ from publicsgdata.datagovsg.models import (
     DatasetRow,
     DatasetRowsResponse,
     DatastoreSearchResult,
+    DownloadFilter,
+    DownloadInitiateResponse,
+    DownloadPollResponse,
 )
+from publicsgdata.datagovsg.resources._downloads import build_download_body
 
 if TYPE_CHECKING:
     from publicsgdata.datagovsg.async_client import AsyncDataGovSGClient
@@ -128,6 +135,99 @@ class DatasetsResource:
             )
 
         return CkanSearchIterator(fetch_page, initial_offset=offset)
+
+    def initiate_download(
+        self,
+        dataset_id: str,
+        *,
+        column_names: Sequence[str] | None = None,
+        filters: Sequence[DownloadFilter | Mapping[str, Any]] | None = None,
+    ) -> DownloadInitiateResponse:
+        path = f"/datasets/{dataset_id}/initiate-download"
+        payload = self._client._request_json(
+            "GET",
+            DataGovSGHost.DOWNLOAD,
+            path,
+            json=build_download_body(column_names=column_names, filters=filters),
+        )
+        return DownloadInitiateResponse.model_validate(self._client._catalog_data(payload))
+
+    def poll_download(
+        self,
+        dataset_id: str,
+        *,
+        column_names: Sequence[str] | None = None,
+        filters: Sequence[DownloadFilter | Mapping[str, Any]] | None = None,
+    ) -> DownloadPollResponse:
+        path = f"/datasets/{dataset_id}/poll-download"
+        payload = self._client._request_json(
+            "GET",
+            DataGovSGHost.DOWNLOAD,
+            path,
+            json=build_download_body(column_names=column_names, filters=filters),
+        )
+        return DownloadPollResponse.model_validate(self._client._catalog_data(payload))
+
+    def get_download_url(
+        self,
+        dataset_id: str,
+        *,
+        column_names: Sequence[str] | None = None,
+        filters: Sequence[DownloadFilter | Mapping[str, Any]] | None = None,
+        skip_initiate: bool = False,
+        poll_interval: float = 2.0,
+        timeout: float = 300.0,
+    ) -> str:
+        if not skip_initiate:
+            self.initiate_download(
+                dataset_id, column_names=column_names, filters=filters
+            )
+
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            result = self.poll_download(
+                dataset_id, column_names=column_names, filters=filters
+            )
+            if result.url:
+                return result.url
+            time.sleep(poll_interval)
+
+        raise TimeoutError(
+            f"Timed out waiting for download URL for dataset {dataset_id!r}"
+        )
+
+    def download_file(
+        self,
+        dataset_id: str,
+        destination: str | Path,
+        *,
+        column_names: Sequence[str] | None = None,
+        filters: Sequence[DownloadFilter | Mapping[str, Any]] | None = None,
+        skip_initiate: bool = False,
+        poll_interval: float = 2.0,
+        timeout: float = 300.0,
+    ) -> Path:
+        url = self.get_download_url(
+            dataset_id,
+            column_names=column_names,
+            filters=filters,
+            skip_initiate=skip_initiate,
+            poll_interval=poll_interval,
+            timeout=timeout,
+        )
+        response = self._client._http_client.get(url)
+        response.raise_for_status()
+
+        path = Path(destination)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(response.content)
+        return path
+
+    @staticmethod
+    def _guess_filename(url: str, dataset_id: str) -> str:
+        parsed = urlparse(url)
+        name = Path(parsed.path).name
+        return name or f"{dataset_id}.csv"
 
 
 class AsyncDatasetsResource:
@@ -246,3 +346,92 @@ class AsyncDatasetsResource:
         )
         async for row in iterator:
             yield row
+
+    async def initiate_download(
+        self,
+        dataset_id: str,
+        *,
+        column_names: Sequence[str] | None = None,
+        filters: Sequence[DownloadFilter | Mapping[str, Any]] | None = None,
+    ) -> DownloadInitiateResponse:
+        path = f"/datasets/{dataset_id}/initiate-download"
+        payload = await self._client._request_json(
+            "GET",
+            DataGovSGHost.DOWNLOAD,
+            path,
+            json=build_download_body(column_names=column_names, filters=filters),
+        )
+        return DownloadInitiateResponse.model_validate(self._client._catalog_data(payload))
+
+    async def poll_download(
+        self,
+        dataset_id: str,
+        *,
+        column_names: Sequence[str] | None = None,
+        filters: Sequence[DownloadFilter | Mapping[str, Any]] | None = None,
+    ) -> DownloadPollResponse:
+        path = f"/datasets/{dataset_id}/poll-download"
+        payload = await self._client._request_json(
+            "GET",
+            DataGovSGHost.DOWNLOAD,
+            path,
+            json=build_download_body(column_names=column_names, filters=filters),
+        )
+        return DownloadPollResponse.model_validate(self._client._catalog_data(payload))
+
+    async def get_download_url(
+        self,
+        dataset_id: str,
+        *,
+        column_names: Sequence[str] | None = None,
+        filters: Sequence[DownloadFilter | Mapping[str, Any]] | None = None,
+        skip_initiate: bool = False,
+        poll_interval: float = 2.0,
+        timeout: float = 300.0,
+    ) -> str:
+        import asyncio
+
+        if not skip_initiate:
+            await self.initiate_download(
+                dataset_id, column_names=column_names, filters=filters
+            )
+
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            result = await self.poll_download(
+                dataset_id, column_names=column_names, filters=filters
+            )
+            if result.url:
+                return result.url
+            await asyncio.sleep(poll_interval)
+
+        raise TimeoutError(
+            f"Timed out waiting for download URL for dataset {dataset_id!r}"
+        )
+
+    async def download_file(
+        self,
+        dataset_id: str,
+        destination: str | Path,
+        *,
+        column_names: Sequence[str] | None = None,
+        filters: Sequence[DownloadFilter | Mapping[str, Any]] | None = None,
+        skip_initiate: bool = False,
+        poll_interval: float = 2.0,
+        timeout: float = 300.0,
+    ) -> Path:
+        url = await self.get_download_url(
+            dataset_id,
+            column_names=column_names,
+            filters=filters,
+            skip_initiate=skip_initiate,
+            poll_interval=poll_interval,
+            timeout=timeout,
+        )
+        response = await self._client._http_client.get(url)
+        response.raise_for_status()
+
+        path = Path(destination)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(response.content)
+        return path

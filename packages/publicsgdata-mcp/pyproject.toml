@@ -1,0 +1,29 @@
+[project]
+name = "publicsgdata-mcp"
+version = "0.1.0"
+description = "Local MCP server for Singapore government open data via publicsgdata"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [{ name = "publicsgdata contributors" }]
+keywords = ["singapore", "open-data", "data.gov.sg", "mcp", "ai"]
+dependencies = [
+    "mcp[cli]>=1.4",
+    "publicsgdata",
+]
+
+[project.scripts]
+publicsgdata-mcp = "publicsgdata_mcp.server:main"
+
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/publicsgdata_mcp"]
+
+[tool.uv.sources]
+publicsgdata = { workspace = true }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

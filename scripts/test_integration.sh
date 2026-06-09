@@ -9,4 +9,4 @@ if [ ! -f uv.lock ]; then
 fi
 
 echo "Running integration tests against data.gov.sg (needs network)..."
-uv run pytest -m integration -v "$@"
+uv run pytest -m integration -v packages/publicsgdata/tests "$@"

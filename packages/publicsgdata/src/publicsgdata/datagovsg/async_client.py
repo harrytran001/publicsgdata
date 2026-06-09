@@ -7,21 +7,21 @@ import httpx
 
 from publicsgdata._constants import DEFAULT_TIMEOUT, default_api_key
 from publicsgdata.datagovsg._request import DataGovSGHost, DataGovSGRequestMixin
-from publicsgdata.datagovsg.resources.collections import CollectionsResource
-from publicsgdata.datagovsg.resources.datasets import DatasetsResource
-from publicsgdata.datagovsg.resources.realtime import RealtimeResource
+from publicsgdata.datagovsg.resources.collections import AsyncCollectionsResource
+from publicsgdata.datagovsg.resources.datasets import AsyncDatasetsResource
+from publicsgdata.datagovsg.resources.realtime import AsyncRealtimeResource
 
 
-class DataGovSGClient(DataGovSGRequestMixin):
-    """Sync client for data.gov.sg APIs."""
+class AsyncDataGovSGClient(DataGovSGRequestMixin):
+    """Async client for data.gov.sg APIs."""
 
-    _http_client: httpx.Client
+    _http_client: httpx.AsyncClient
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
-        http_client: httpx.Client | None = None,
+        http_client: httpx.AsyncClient | None = None,
         timeout: float = DEFAULT_TIMEOUT,
         max_retries: int = 0,
     ) -> None:
@@ -32,37 +32,39 @@ class DataGovSGClient(DataGovSGRequestMixin):
             self._http_client = http_client
             self._owns_client = False
         else:
-            self._http_client = httpx.Client(timeout=timeout)
+            self._http_client = httpx.AsyncClient(timeout=timeout)
             self._owns_client = True
 
-        self.collections = CollectionsResource(self)
-        self.datasets = DatasetsResource(self)
-        self.realtime = RealtimeResource(self)
+        self.collections = AsyncCollectionsResource(self)
+        self.datasets = AsyncDatasetsResource(self)
+        self.realtime = AsyncRealtimeResource(self)
 
-    def __enter__(self) -> DataGovSGClient:
+    async def __aenter__(self) -> AsyncDataGovSGClient:
         return self
 
-    def __exit__(self, *args: object) -> None:
-        self.close()
+    async def __aexit__(self, *args: object) -> None:
+        await self.close()
 
-    def close(self) -> None:
+    async def close(self) -> None:
         if self._owns_client:
-            self._http_client.close()
+            await self._http_client.aclose()
 
-    def _request_json(
+    async def _request_json(
         self,
         method: str,
         host: DataGovSGHost,
         path: str,
         *,
         params: Mapping[str, Any] | None = None,
+        json: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         url = self._build_url(host, path)
         encoded = self._encode_query(params) if params else None
-        response = self._http_client.request(
+        response = await self._http_client.request(
             method,
             url,
             params=encoded,
+            json=json,
             headers=self._merge_headers(),
         )
         payload = self._parse_json(response)
