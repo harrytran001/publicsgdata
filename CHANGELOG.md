@@ -2,6 +2,14 @@
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1](https://github.com/harrytran001/publicsgdata/compare/v0.1.0...v0.1.1) (2026-06-09)
+
+
+### Documentation
+
+* humanize copy and use uv for install ([05d227e](https://github.com/harrytran001/publicsgdata/commit/05d227e807bfa61e56a529f0c510e23503eed660))
+* improve README quickstart examples ([dcda6f6](https://github.com/harrytran001/publicsgdata/commit/dcda6f667f53889d6b11089745c4f31c873aaa13))
+
 ## [Unreleased]
 
 ## [0.1.0] - 2026-06-09
