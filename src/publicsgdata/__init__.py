@@ -1,4 +1,4 @@
-"""publicsgdata — Python SDK for Singapore government public data."""
+"""publicsgdata: Python client for Singapore government public data."""
 
 from publicsgdata._exceptions import (
     APIError,

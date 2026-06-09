@@ -1,6 +1,6 @@
-"""Live data.gov.sg API smoke tests — run locally only, not in CI.
+"""Live API tests. Run locally, not in CI. Needs network.
 
-Requires network. Optional API key via DATA_GOV_SG_API_KEY for higher rate limits.
+Set DATA_GOV_SG_API_KEY if you hit rate limits.
 """
 
 from __future__ import annotations

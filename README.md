@@ -2,12 +2,14 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Python SDK for Singapore government public data
+Python client for Singapore government open data: data.gov.sg today, LTA and OneMap later.
 
 ## Install
 
+Requires [uv](https://docs.astral.sh/uv/getting-started/installation/).
+
 ```bash
-pip install publicsgdata
+uv pip install publicsgdata
 ```
 
 ## Quickstart
@@ -15,18 +17,16 @@ pip install publicsgdata
 ```python
 from publicsgdata import DataGovSGClient
 
-with DataGovSGClient() as client:  # optional: api_key="..." or DATA_GOV_SG_API_KEY env
-    # Browse catalog collections
+with DataGovSGClient() as client:  # optional: api_key="..." or DATA_GOV_SG_API_KEY
     catalog = client.collections.list()
     print(f"{len(catalog.collections)} collections")
     print(catalog.collections[0].name)
 
-    # Fetch dataset rows (HDB resale prices example dataset)
+    # HDB resale prices (swap in any dataset ID)
     rows = client.datasets.list_rows("d_8b84c4ee58e3cfc0ece0d773c8ca6abc", limit=10)
     for row in rows.rows:
         print(row.model_dump())
 
-    # PM2.5 real-time readings
     pm25 = client.realtime.pm25.get()
     print(pm25.items[0].readings)
 ```
@@ -41,7 +41,9 @@ async with AsyncDataGovSGClient() as client:
     print(len(rows.rows))
 ```
 
-### Bring your own HTTP client
+### Custom HTTP client
+
+Pass your own `httpx` client if you need custom timeouts, proxies, etc.
 
 ```python
 import httpx
@@ -49,12 +51,12 @@ from publicsgdata import DataGovSGClient
 
 with httpx.Client(timeout=30.0) as http:
     client = DataGovSGClient(http_client=http)
-    print(client.collections.list())
+    print(len(client.collections.list().collections))
 ```
 
 ## Authentication
 
-data.gov.sg APIs work without a key for testing. For production, register an API key at [data.gov.sg](https://data.gov.sg/) and set:
+You can call the API without a key while experimenting. For regular use, get a key from [data.gov.sg](https://data.gov.sg/) and set:
 
 ```bash
 export DATA_GOV_SG_API_KEY="your-key"
@@ -68,26 +70,26 @@ export DATA_GOV_SG_API_KEY="your-key"
 
 ## Development
 
-Requires [uv](https://docs.astral.sh/uv/getting-started/installation/).
+You'll need [uv](https://docs.astral.sh/uv/getting-started/installation/).
 
 ```bash
-./scripts/dev_setup.sh         # uv sync — creates .venv from uv.lock
+./scripts/dev_setup.sh         # creates .venv from uv.lock
 ./scripts/format.sh
 ./scripts/validate.sh
-./scripts/test.sh              # unit tests (CI)
-./scripts/test_integration.sh  # live API smoke tests (local only)
+./scripts/test.sh              # unit tests, runs in CI
+./scripts/test_integration.sh  # hits the real API, local only
 ```
 
-Or run tools directly: `uv run pytest`, `uv run ruff check .`, etc.
+Or run things directly: `uv run pytest`, `uv run ruff check .`, etc.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for PR guidelines and release process.
+See [CONTRIBUTING.md](CONTRIBUTING.md) if you're opening a PR.
 
 ## Roadmap
 
-- **v0.1.0** — `DataGovSGClient` (this release)
-- **v0.2.0** — `LTAClient` (LTA DataMall)
-- **v0.3.0** — `OneMapClient`
+- **v0.1.0**: `DataGovSGClient`
+- **v0.2.0**: `LTAClient` (LTA DataMall)
+- **v0.3.0**: `OneMapClient`
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
