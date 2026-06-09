@@ -1,0 +1,14 @@
+---
+description: Keep package READMEs user-facing
+globs: packages/*/README.md
+alwaysApply: false
+---
+
+# Package README Guidance
+
+Package READMEs are for package users first.
+
+- Prefer published-package setup and usage over monorepo development commands.
+- Avoid local maintainer workflows such as `uv sync`, `uv run --directory`, branch notes, or implementation details unless there is a clearly labeled contributor section.
+- Keep MCP package docs focused on what users paste into their MCP client and what tools are available.
+- Put developer workflow details in contributor docs or internal notes instead of the package README.

@@ -39,23 +39,42 @@ jobs:
 
       - name: Build publicsgdata
         if: inputs.package == 'publicsgdata' || inputs.package == 'both'
-        run: uv build --package publicsgdata
+        run: uv build --package publicsgdata --out-dir dist/publicsgdata
 
       - name: Build publicsgdata-mcp
         if: inputs.package == 'publicsgdata-mcp' || inputs.package == 'both'
-        run: uv build --package publicsgdata-mcp
+        run: uv build --package publicsgdata-mcp --out-dir dist/publicsgdata-mcp
 
-      - name: Publish to TestPyPI
-        if: inputs.publish_target == 'testpypi'
+      - name: Publish publicsgdata to TestPyPI
+        if: inputs.publish_target == 'testpypi' && (inputs.package == 'publicsgdata' || inputs.package == 'both')
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
           repository-url: https://test.pypi.org/legacy/
+          packages-dir: dist/publicsgdata
 
-      - name: Publish to PyPI
-        if: inputs.publish_target == 'pypi'
+      - name: Publish publicsgdata-mcp to TestPyPI
+        if: inputs.publish_target == 'testpypi' && (inputs.package == 'publicsgdata-mcp' || inputs.package == 'both')
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.TEST_PYPI_MCP_API_TOKEN }}
+          repository-url: https://test.pypi.org/legacy/
+          packages-dir: dist/publicsgdata-mcp
+
+      - name: Publish publicsgdata to PyPI
+        if: inputs.publish_target == 'pypi' && (inputs.package == 'publicsgdata' || inputs.package == 'both')
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
+          packages-dir: dist/publicsgdata
+
+      - name: Publish publicsgdata-mcp to PyPI
+        if: inputs.publish_target == 'pypi' && (inputs.package == 'publicsgdata-mcp' || inputs.package == 'both')
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_MCP_API_TOKEN }}
+          packages-dir: dist/publicsgdata-mcp
