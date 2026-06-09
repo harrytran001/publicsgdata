@@ -51,10 +51,10 @@ Requires network. Optional: `export DATA_GOV_SG_API_KEY=...` for higher rate lim
 
 1. Merge PRs with conventional titles (`feat:`, `fix:`, etc.).
 2. Release Please opens a release PR updating `CHANGELOG.md` and `pyproject.toml`.
-3. Merge the release PR → GitHub Release is created with notes.
-4. `release.yml` publishes to TestPyPI then PyPI.
+3. Merge the release PR → GitHub Release is created → `release.yml` publishes to **TestPyPI only**.
+4. When ready for production: **Actions → Release publicsgdata → Run workflow** → choose `pypi`.
 
-Configure secrets once: `PYPI_API_TOKEN`, `TEST_PYPI_API_TOKEN`.
+Configure secrets once: `TEST_PYPI_API_TOKEN` (required for step 3), `PYPI_API_TOKEN` (required for step 4).
 
 Manual fallback:
 
