@@ -12,7 +12,7 @@ Add to `.cursor/mcp.json`:
     "publicsgdata": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["publicsgdata-mcp"],
+      "args": ["--python", "3.12", "publicsgdata-mcp"],
       "env": {
         "DATA_GOV_SG_API_KEY": "${env:DATA_GOV_SG_API_KEY}"
       }

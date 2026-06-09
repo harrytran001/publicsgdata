@@ -4,7 +4,7 @@ version = "0.2.0"
 description = "Local MCP server for Singapore government open data via publicsgdata"
 readme = "README.md"
 license = "MIT"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.14"
 authors = [{ name = "publicsgdata contributors" }]
 keywords = ["singapore", "open-data", "data.gov.sg", "mcp", "ai"]
 dependencies = [
