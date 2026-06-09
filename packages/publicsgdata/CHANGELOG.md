@@ -2,6 +2,14 @@
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0](https://github.com/harrytran001/publicsgdata/compare/publicsgdata-v0.1.2...publicsgdata-v0.2.0) (2026-06-09)
+
+
+### Features
+
+* add dataset download API to publicsgdata SDK. ([0494d23](https://github.com/harrytran001/publicsgdata/commit/0494d23b53e7fa53002b608e9d45748a7c14903e))
+* refactor packages + add mcp server ([272ad97](https://github.com/harrytran001/publicsgdata/commit/272ad97e809413fe07b9ac0a8c1d5ebcbbed8d56))
+
 ## [0.1.2](https://github.com/harrytran001/publicsgdata/compare/v0.1.1...v0.1.2) (2026-06-09)
 
 
