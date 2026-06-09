@@ -4,7 +4,14 @@ import json
 from typing import Any
 
 from publicsgdata import DataGovSGClient
+from publicsgdata.datagovsg._request import DataGovSGHost
 from publicsgdata_mcp.cache import dataset_cache_path
+from publicsgdata_mcp.realtime_catalog import (
+    describe_realtime_api,
+    list_realtime_dataset_names,
+    normalize_realtime_parameters,
+    resolve_realtime_api,
+)
 
 MAX_PREVIEW_ROWS = 50
 MAX_SEARCH_ROWS = 50
@@ -106,6 +113,38 @@ def download_dataset_file(
     )
 
 
-def get_pm25(date: str | None = None) -> str:
-    pm25 = get_client().realtime.pm25.get(date=date)
-    return _json(pm25)
+def list_realtime_datasets() -> str:
+    return _json(list_realtime_dataset_names())
+
+
+def describe_realtime_dataset(dataset_name: str) -> str:
+    return _json(describe_realtime_api(dataset_name))
+
+
+def fetch_realtime_data(
+    dataset_name: str,
+    parameters: dict[str, Any] | None = None,
+) -> str:
+    api = resolve_realtime_api(dataset_name)
+    params = normalize_realtime_parameters(api, parameters)
+    client = get_client()
+
+    if api.host == "v2_realtime":
+        payload = client._request_json(
+            "GET",
+            DataGovSGHost.REALTIME,
+            api.path,
+            params=params or None,
+        )
+        data = client._realtime_data(payload)
+    else:
+        raise ValueError(f"Unsupported realtime host {api.host!r} for {api.dataset_name}")
+
+    return _json(
+        {
+            "dataset_name": api.dataset_name,
+            "title": api.title,
+            "parameters": parameters or {},
+            "data": data,
+        }
+    )

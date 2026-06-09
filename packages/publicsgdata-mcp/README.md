@@ -66,7 +66,19 @@ After publishing:
 | `search_dataset_rows` | Filter/search within a dataset |
 | `get_dataset_download_url` | Temporary URL for full export |
 | `download_dataset_file` | Save full dataset locally |
-| `get_pm25` | Realtime PM2.5 readings |
+| `list_realtime_datasets` | List supported realtime dataset names |
+| `describe_realtime_dataset` | Full parameter and response docs for one realtime dataset |
+| `fetch_realtime_data` | Fetch data from a realtime API by `dataset_name` |
+
+## Realtime APIs
+
+Instead of one MCP tool per realtime endpoint, use a three-step flow:
+
+1. **`list_realtime_datasets`** — returns descriptive `dataset_name` strings.
+2. **`describe_realtime_dataset`** — pass a `dataset_name` (e.g. `air_quality_pm25_hourly_by_region`) for full parameter and response documentation.
+3. **`fetch_realtime_data`** — pass the same `dataset_name` and optional `parameters` dict (e.g. `{"date": "2024-07-16"}`).
+
+New realtime endpoints are added to the catalog in code; agents do not need new tools when more APIs are supported.
 
 ## Agent workflow
 

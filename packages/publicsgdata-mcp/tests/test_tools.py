@@ -90,3 +90,64 @@ def test_download_dataset_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) 
         assert payload["local_path"].endswith("d_test.csv")
         assert (tmp_path / "datasets" / "d_test" / "d_test.csv").exists()
         client.close()
+
+
+def test_list_realtime_datasets() -> None:
+    payload = json.loads(tools.list_realtime_datasets())
+    assert payload == ["air_quality_pm25_hourly_by_region"]
+
+
+def test_describe_realtime_dataset_one_api() -> None:
+    payload = json.loads(tools.describe_realtime_dataset("pm25"))
+    assert payload["dataset_name"] == "air_quality_pm25_hourly_by_region"
+    param_names = [param["name"] for param in payload["parameters"]]
+    assert "date" in param_names
+    assert "paginationToken" in param_names
+
+
+def test_fetch_realtime_data_pm25() -> None:
+    fixture = {
+        "code": 0,
+        "data": {
+            "regionMetadata": [
+                {
+                    "name": "central",
+                    "labelLocation": {"latitude": 1.35, "longitude": 103.82},
+                }
+            ],
+            "items": [
+                {
+                    "date": "2026-06-09",
+                    "timestamp": "2026-06-09T11:00:00+08:00",
+                    "readings": {"pm25_one_hourly": {"central": 17}},
+                }
+            ],
+        },
+        "errorMsg": "",
+    }
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        if request.url.path.endswith("/pm25"):
+            return httpx.Response(200, json=fixture)
+        return httpx.Response(404, json={"message": "not found"})
+
+    transport = httpx.MockTransport(handler)
+    with patch.object(tools, "get_client") as mock_get_client:
+        from publicsgdata import DataGovSGClient
+
+        client = DataGovSGClient(http_client=httpx.Client(transport=transport))
+        mock_get_client.return_value = client
+        payload = json.loads(
+            tools.fetch_realtime_data("air_quality_pm25_hourly_by_region")
+        )
+        assert payload["dataset_name"] == "air_quality_pm25_hourly_by_region"
+        assert payload["data"]["items"][0]["readings"]["pm25_one_hourly"]["central"] == 17
+        client.close()
+
+
+def test_fetch_realtime_data_rejects_unknown_parameter() -> None:
+    with pytest.raises(ValueError, match="Unknown parameters"):
+        tools.fetch_realtime_data(
+            "air_quality_pm25_hourly_by_region",
+            parameters={"bogus": "value"},
+        )
