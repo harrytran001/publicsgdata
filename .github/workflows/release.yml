@@ -1,10 +1,17 @@
-name: Release publicsgdata
+name: Release packages
 
 on:
-  release:
-    types: [published]
   workflow_dispatch:
     inputs:
+      package:
+        description: Package to publish
+        required: true
+        default: publicsgdata
+        type: choice
+        options:
+          - publicsgdata
+          - publicsgdata-mcp
+          - both
       publish_target:
         description: Where to publish
         required: true
@@ -30,21 +37,24 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Build package
-        run: uv build
+      - name: Build publicsgdata
+        if: inputs.package == 'publicsgdata' || inputs.package == 'both'
+        run: uv build --package publicsgdata
 
-      # Merge release PR → GitHub Release published → TestPyPI only
+      - name: Build publicsgdata-mcp
+        if: inputs.package == 'publicsgdata-mcp' || inputs.package == 'both'
+        run: uv build --package publicsgdata-mcp
+
       - name: Publish to TestPyPI
-        if: github.event_name == 'release' || inputs.publish_target == 'testpypi'
+        if: inputs.publish_target == 'testpypi'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
           repository-url: https://test.pypi.org/legacy/
 
-      # PyPI: manual only via Actions → Run workflow → publish_target = pypi
       - name: Publish to PyPI
-        if: github.event_name == 'workflow_dispatch' && inputs.publish_target == 'pypi'
+        if: inputs.publish_target == 'pypi'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__

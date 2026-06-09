@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "separate-pull-requests": true,
+  "packages": {
+    "packages/publicsgdata": {
+      "release-type": "python",
+      "component": "publicsgdata",
+      "package-name": "publicsgdata",
+      "changelog-path": "CHANGELOG.md",
+      "extra-files": [
+        "src/publicsgdata/__init__.py"
+      ]
+    },
+    "packages/publicsgdata-mcp": {
+      "release-type": "python",
+      "component": "publicsgdata-mcp",
+      "package-name": "publicsgdata-mcp",
+      "changelog-path": "CHANGELOG.md",
+      "extra-files": [
+        "src/publicsgdata_mcp/__init__.py"
+      ]
+    }
+  }
+}
