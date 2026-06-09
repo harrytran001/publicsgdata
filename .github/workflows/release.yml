@@ -3,6 +3,16 @@ name: Release publicsgdata
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      publish_target:
+        description: Where to publish (PyPI is manual only — never triggered by GitHub Release)
+        required: true
+        default: testpypi
+        type: choice
+        options:
+          - testpypi
+          - pypi
 
 permissions:
   contents: read
@@ -23,14 +33,18 @@ jobs:
       - name: Build package
         run: uv build
 
+      # Merge release PR → GitHub Release published → TestPyPI only
       - name: Publish to TestPyPI
+        if: github.event_name == 'release' || inputs.publish_target == 'testpypi'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
           repository-url: https://test.pypi.org/legacy/
 
+      # PyPI: manual only via Actions → Run workflow → publish_target = pypi
       - name: Publish to PyPI
+        if: github.event_name == 'workflow_dispatch' && inputs.publish_target == 'pypi'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
