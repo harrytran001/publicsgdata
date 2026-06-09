@@ -2,6 +2,14 @@
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2](https://github.com/harrytran001/publicsgdata/compare/v0.1.1...v0.1.2) (2026-06-09)
+
+
+### Documentation
+
+* add unofficial project disclaimer to README ([08bbba7](https://github.com/harrytran001/publicsgdata/commit/08bbba72bff931942ce54ccbadce2d4ed868d9ae))
+* add unofficial project disclaimer to README ([a24592e](https://github.com/harrytran001/publicsgdata/commit/a24592edd41749ee3efce41dd788506e2fb2ab91))
+
 ## [0.1.1](https://github.com/harrytran001/publicsgdata/compare/v0.1.0...v0.1.1) (2026-06-09)
 
 
