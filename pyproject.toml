@@ -1,6 +1,6 @@
 [project]
 name = "publicsgdata"
-version = "0.1.1"
+version = "0.1.2"
 description = "Python client for Singapore government open data (data.gov.sg, LTA, OneMap)"
 readme = "README.md"
 license = "MIT"
