@@ -8,4 +8,4 @@ if [ ! -f uv.lock ]; then
   "$ROOT/scripts/dev_setup.sh"
 fi
 
-uv run pytest -m "not integration" --cov=publicsgdata --cov-report=term-missing "$@"
+uv run pytest -m "not integration" --cov=publicsgdata --cov-report=term-missing packages/publicsgdata/tests "$@"

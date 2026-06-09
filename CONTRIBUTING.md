@@ -22,7 +22,14 @@ Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then:
 ./scripts/dev_setup.sh
 ```
 
-Use `uv run pytest` (and friends) or the `./scripts/*.sh` scripts.
+Use `uv run pytest` (and friends) or the `./scripts/*.sh` scripts from the repo root.
+
+## Repository layout
+
+```text
+packages/
+  publicsgdata/        # Python SDK
+```
 
 ## Formatting
 
