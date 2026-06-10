@@ -12,6 +12,12 @@ dependencies = [
     "publicsgdata",
 ]
 
+[project.urls]
+Homepage = "https://github.com/harrytran001/publicsgdata"
+Repository = "https://github.com/harrytran001/publicsgdata"
+Documentation = "https://github.com/harrytran001/publicsgdata/tree/main/packages/publicsgdata-mcp"
+Issues = "https://github.com/harrytran001/publicsgdata/issues"
+
 [project.scripts]
 publicsgdata-mcp = "publicsgdata_mcp.server:main"
 
