@@ -36,10 +36,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/publicsgdata/publicsgdata"
-Repository = "https://github.com/publicsgdata/publicsgdata"
-Documentation = "https://github.com/publicsgdata/publicsgdata#readme"
-Issues = "https://github.com/publicsgdata/publicsgdata/issues"
+Homepage = "https://github.com/harrytran001/publicsgdata"
+Repository = "https://github.com/harrytran001/publicsgdata"
+Documentation = "https://github.com/harrytran001/publicsgdata/tree/main/packages/publicsgdata"
+Issues = "https://github.com/harrytran001/publicsgdata/issues"
 
 [build-system]
 requires = ["hatchling>=1.26"]
