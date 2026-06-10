@@ -2,6 +2,14 @@
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2](https://github.com/harrytran001/publicsgdata/compare/publicsgdata-v0.2.1...publicsgdata-v0.2.2) (2026-06-10)
+
+
+### Bug Fixes
+
+* point PyPI project URLs at the correct GitHub repository ([9b9ce67](https://github.com/harrytran001/publicsgdata/commit/9b9ce67e45dd6c729f3ec06fb35705143afe999c))
+* point PyPI project URLs at the correct GitHub repository ([5571c54](https://github.com/harrytran001/publicsgdata/commit/5571c54eaf89b419c1fbb4ed8d02c6e2c04207b9))
+
 ## [0.2.1](https://github.com/harrytran001/publicsgdata/compare/publicsgdata-v0.2.0...publicsgdata-v0.2.1) (2026-06-09)
 
 
